@@ -14,8 +14,8 @@ std::array<const char*, 2> g_symbols = {
 
 class TestModule: public RePlexModule<TestModule, g_symbols.size()> {
     public:
-        static void Foo() {
-            GetInstance().Execute<void>("foo");
+        static int Foo(int arg) {
+            return GetInstance().Execute<int, int>("foo", arg);
         }
 
         static int GetBar() {
@@ -24,7 +24,7 @@ class TestModule: public RePlexModule<TestModule, g_symbols.size()> {
         
     protected:
         const char* GetPath() const override {
-            return "bin/Debug/RePlexTest.dll";
+            return "bin/Release/RePlexTest.dll";
         }
 
         std::array<const char*, g_symbols.size()>& GetSymbolNames() const override {
