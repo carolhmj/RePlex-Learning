@@ -1,8 +1,6 @@
 #pragma once
 
-class Foo {
-    public:
-         __declspec(dllexport) int GetTheAnswer() const;
-    private:
-        int m_theAnswer = 42;
-};
+__declspec(dllexport) void* Load(const char* filepath);
+__declspec(dllexport) void* LoadSymbol(void* library, const char* symbol);
+__declspec(dllexport) void Reload(void* &library, const char* filepath);
+__declspec(dllexport) void PrintError();

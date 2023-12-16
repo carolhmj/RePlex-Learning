@@ -14,6 +14,10 @@ workspace "RePlex"
         files { "runtime/**.h", "runtime/**.cpp" }
         links { "RePlex" }
         includedirs { "lib/pub" }
+    
+    project "RePlexTest"
+        kind "SharedLib"
+        files { "test/**.h", "test/**.cpp", "test/pub/*.h" }
 
     filter "configurations:Debug"
         defines { "DEBUG" }
