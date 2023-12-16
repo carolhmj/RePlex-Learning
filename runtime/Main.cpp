@@ -1,18 +1,15 @@
-#include <RePlex.h>
-#include <Test.h>
-#include <iostream>
+#include <gtest/gtest.h>
 
-int main() {
-	TestModule::LoadMyLibrary();
-	TestModule::Foo();
-	std::cout << "bar == " << TestModule::GetBar() << std::endl;
+TEST(SillyTest, IsFourPositive) {
+	EXPECT_GT(4, 0);
+};
 
-	std::cout << "Make some changes, recompile, and press enter." << std::flush;
-	while (std::cin.get() != '\n') {}
+TEST(SillyTest, IsFourTimesFourSixteen) {
+	int x = 4;
+	EXPECT_EQ(x * x, 16);
+}
 
-	TestModule::ReloadLibrary();
-	TestModule::Foo();
-	std::cout << "bar == " << TestModule::GetBar() << std::endl;
-
-	return 0;
+int main(int argc, char** argv) {
+	::testing::InitGoogleTest(&argc, argv);
+	return RUN_ALL_TESTS();
 }
