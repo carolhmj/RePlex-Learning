@@ -2,7 +2,7 @@
 #include <cstdio>
 
 void foo() {
-    printf("Hello, world!\n");
+    printf("Hello, worlds!\n");
 }
 
-int bar = 4;
+int bar = 5;

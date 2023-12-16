@@ -5,19 +5,15 @@ workspace "RePlex"
 
     cppdialect "C++17"
 
-    project "RePlex"
-        kind "SharedLib"
-        files { "lib/**.h", "lib/**.cpp" }
-
     project "RePlexRuntime"
         kind "ConsoleApp"
         files { "runtime/**.h", "runtime/**.cpp" }
-        links { "RePlex" }
-        includedirs { "lib/pub" }
+        includedirs { "lib/pub" , "test/pub" }
     
     project "RePlexTest"
         kind "SharedLib"
         files { "test/**.h", "test/**.cpp", "test/pub/*.h" }
+        includedirs { "lib/pub" }
 
     filter "configurations:Debug"
         defines { "DEBUG" }

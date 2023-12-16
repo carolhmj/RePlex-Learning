@@ -1,43 +1,18 @@
 #include <RePlex.h>
+#include <Test.h>
 #include <iostream>
 
-#ifdef RELEASE
-const char* g_libpath = "bin/Release/RePlexTest.dll";
-#else
-const char* g_libpath = "bin/Debug/RePlexTest.dll";
-#endif
-
-void(*foo)();
-
 int main() {
-    void* handle = Load(g_libpath);
-    if (handle) {
-        foo = reinterpret_cast<void(*)()>(LoadSymbol(handle, "foo"));
-        if (!foo) {
-            PrintError();
-            return 1;
-        }
-        foo();
+	TestModule::LoadMyLibrary();
+	TestModule::Foo();
+	std::cout << "bar == " << TestModule::GetBar() << std::endl;
 
-        int bar = *reinterpret_cast<int*>(LoadSymbol(handle, "bar"));
-        std::cout << "bar == " << bar << std::endl;
+	std::cout << "Make some changes, recompile, and press enter." << std::flush;
+	while (std::cin.get() != '\n') {}
 
-        std::cout << "Make some changes, recompile and press enter." << std::flush;
-        while(std::cin.get() != '\n') { }
+	TestModule::ReloadLibrary();
+	TestModule::Foo();
+	std::cout << "bar == " << TestModule::GetBar() << std::endl;
 
-        Reload(handle, g_libpath);
-
-        foo = reinterpret_cast<void(*)()>(LoadSymbol(handle, "foo"));
-        if (!foo) {
-            PrintError();
-            return 1;
-        }
-        foo();
-
-        bar = *reinterpret_cast<int*>(LoadSymbol(handle, "bar"));
-        std::cout << "bar == " << bar << std::endl;
-    } else {
-        PrintError();
-    }
-    return 0;
+	return 0;
 }
